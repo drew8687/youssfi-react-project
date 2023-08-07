@@ -1,26 +1,24 @@
 import axios from "axios";
-import Products from "../component/Products";
-
 export const productsApi =axios.create({
-    baseUrl:"http:/localhost:9000"
+    baseURL:"http://localhost:9000"
 });
 export const getProducts=()=>{
-    return productsApi.get("/Products"); 
+    return productsApi.get("/products") ;  
 }
-export const deletProduct=()=>{
-    return productsApi.delete("/Products/${product.id}"); 
+export const deleteProduct=(product)=>{
+    return productsApi.delete("/products/"+product.id); 
 }
 export const getProduct=(id)=>{ 
-    return productsApi.get('/Products/${id}');
+    return productsApi.get("/products/"+id);
 
 }
 export const saveProducts=(product)=>{
-    return productsApi.post('/Products',product);
+    return productsApi.post(`/products`,product);
 }
 export const checkProducts=(product)=>{
-    return productsApi.patch('/Products',{checked:!product.checked});
+    return productsApi.patch(`/products/${product.id}`,{checked:!product.checked});
 
 }
-export const updateProdcuts=(product)=>{
-    return productsApi.put('/Products',product);
+export const updateProducts=(product)=>{
+    return productsApi.put(`/products`,product);
 }

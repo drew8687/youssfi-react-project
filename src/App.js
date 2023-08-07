@@ -21,11 +21,11 @@ function App() {
             <Link
               onClick={() => setcurrentRoute("home")}
               className={
-                currentRoute == "home"
+                currentRoute === "home"
                   ? "btn btn-info ms-1"
                   : "btn btn-outline-info ms-1"
               }
-              to={"/home"}
+              to={"/home"} 
             >
               Home
             </Link>
@@ -34,7 +34,7 @@ function App() {
             <Link
               onClick={() => setcurrentRoute("Products")}
               className={
-                currentRoute == "Products"
+                currentRoute === "Products"
                   ? "btn btn-info ms-1"
                   : "btn btn-outline-info ms-1"
               }
@@ -47,7 +47,7 @@ function App() {
             <Link
               onClick={() => setcurrentRoute("NewProducts")}
               className={
-                currentRoute == "NewProducts"
+                currentRoute === "NewProducts"
                   ? "btn btn-info ms-1"
                   : "btn btn-outline-info ms-1"
               }
@@ -63,8 +63,9 @@ function App() {
         <Route path="/home" element={<Home />}></Route>
         <Route path="/products" element={<Products />}></Route>
         <Route path="/newProducts" element={<NewProducts />}></Route>
+        
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter>  
   );
 }
 

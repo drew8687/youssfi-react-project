@@ -1,7 +1,8 @@
 import { faCheckCircle, faCircle, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { checkProducts, deleteProduct, getProducts } from '../app/app';
+import { json } from 'react-router-dom';
 
 
 
@@ -22,30 +23,40 @@ function Products() {
 
     },[]);
     const handelGetProducts=()=>{
-        axios.get("http://localhost:9000/products").then(resp=>{
-            const products=resp.data;
-            setProducts(products);
+        getProducts()
+        .then(resp=>{
+            setProducts(resp.data);
+         
 
-        })
-        .catch(err=>{
-            console.log(err);
-        })
-    }
+        });
+    };
 
 
     const supprimerPrd=(product)=>{
-        const newProducts=products.filter(p=>p.id!=product.id);
-    setProducts(newProducts);    }
-    const changer_etat=(product)=>{
-        const newProducts=products.map((p)=>{
-            if(p.id==product.id){
-                p.checked=!p.checked;
-            }
-            return p;
-        
+        deleteProduct(product).then((resp) => {
+            const newProducts=products.filter((p)=>p.id!==product.id);
+            setProducts(newProducts);
+            alert(JSON.stringify(product));
+
+
         });
-    setProducts(newProducts);    }
-  return (
+};
+    const changer_etat=(product)=>{
+        checkProducts(product)
+        .then((resp) => {
+            const newProducts =products.map((p) => {
+                if(p.id === product.id){
+                    p.checked=!p.checked;
+                }
+                return p;
+            });
+                setProducts(newProducts);
+
+           
+    });
+   
+};
+   return (
     <div className="p-1 m-1">
     <div className='"row'><div className='col-md-6'>
     <div lassName='card'>
