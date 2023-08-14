@@ -5,6 +5,7 @@ import NewProducts from "./component/NewProducts";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./component/Home";
 import { useEffect, useState } from "react";
+import EditProducts from "./component/EditProducts";
 var Link = require("react-router-dom").Link;
 
 function App() {
@@ -63,6 +64,9 @@ function App() {
         <Route path="/home" element={<Home />}></Route>
         <Route path="/products" element={<Products />}></Route>
         <Route path="/newProducts" element={<NewProducts />}></Route>
+        <Route path="/editProducts:id" element={<EditProducts />}></Route>
+
+        
         
       </Routes>
     </BrowserRouter>  

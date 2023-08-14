@@ -1,13 +1,19 @@
 import {
   faCheckCircle,
   faCircle,
+  faEdit,
   faSearch,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { checkProducts, deleteProduct, getProducts } from "../app/app";
-import { keyboard } from "@testing-library/user-event/dist/keyboard";
+import {
+  checkProducts,
+  deleteProduct,
+  getProducts,
+  
+} from "../app/app";
+import { useNavigate } from "react-router-dom";
 
 function Products() {
   /*const [products,setProducts]=useState([
@@ -20,6 +26,7 @@ function Products() {
 
     ])*/
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
   const [state, setState] = useState({
     products: [],
     currentPage: 1,
@@ -57,8 +64,6 @@ function Products() {
   };
   const changer_etat = (product) => {
     checkProducts(product).then((resp) => {
-      console.log(resp.data.JSON);
-
       const newProducts = state.products.map((p) => {
         if (p.id === product.id) {
           p.checked = !p.checked;
@@ -70,15 +75,17 @@ function Products() {
   };
   const handelSearch = (event) => {
     event.preventDefault();
-    setState({ ...state, keyword: query });
+    //setState({ ...state, keyword: query });
+    handelGetProducts(query,1,state.pagesize);
   };
+
   return (
     <div className="p-1 m-1">
       <div className="row">
         <div className="col-md-6">
           <div className="card m-1">
             <div className='"card-body'>
-              <form onSubmit={handelSearch} >
+              <form onSubmit={handelSearch}>
                 <div className=" row g-2">
                   <div className="col-auto">
                     <input
@@ -88,7 +95,7 @@ function Products() {
                     ></input>
                   </div>
                   <div className="col-auto">
-                    <button className="btn-btn-success">
+                    <button  className="btn-btn-success">
                       <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
                     </button>
                   </div>
@@ -129,6 +136,11 @@ function Products() {
                       >
                         <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
                       </button>
+                    </td>
+                    <td>
+                    <button onClick={ () => navigate(`editProducts/${product.id}`)} className="btn btn-outline-success">
+                    <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
+                    </button>
                     </td>
                   </tr>
                 ))}
